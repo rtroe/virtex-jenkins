@@ -29,7 +29,7 @@ function addScript(src, callback, async) {
     var s = document.createElement('script');
     s.setAttribute('src', src);
     s.onload = callback;
-    if (async) s.async = true
+    if (async) s.async = true;
     document.body.appendChild(s);
 }
 
@@ -38,7 +38,7 @@ DOMReady(function() {
     if (document.querySelector(consoleOutputSelector)) {
         // init ansi colors
         addScript("https://cdn.jsdelivr.net/npm/ansi_up@2.0.2/ansi_up.js", function() {
-            var ansiUp = new AnsiUp,
+            var ansiUp = new AnsiUp(),
                 $console = document.querySelector(consoleOutputSelector),
                 entities = {
                     'amp': '&',
@@ -54,8 +54,8 @@ DOMReady(function() {
                 },
                 decodeHTMLEntities = function(text) {
                     return text.replace(/&([^;]+);/gm, function(match, entity) {
-                        return entities[entity] || match
-                    })
+                        return entities[entity] || match;
+                    });
                 },
                 colorizeFn = function() {
                     $console.innerHTML = decodeHTMLEntities(ansiUp.ansi_to_html($console.innerHTML));
@@ -65,7 +65,7 @@ DOMReady(function() {
             // create prototype.js global ajax handle responder
             Ajax.Responders.register({
                 onComplete: function(req, res) {
-                    if (req.body.indexOf("start=") != -1 && res.status==200 && res.responseText != "") {
+                    if (req.body.indexOf("start=") != -1 && res.status==200 && res.responseText !== "") {
                         colorizeFn();
                     }
                 }
